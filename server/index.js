@@ -1,18 +1,29 @@
-require('dotenv').config()
-const uri = process.env.DATABASE_URL
 const express = require('express')
-const mongoose = require('mongoose')
+const cors = require('cors')
 const bodyParser = require('body-parser')
+const { PORT } = require('./config')
+const todoRouter = require('./routes/todo.routes')
+const userRouter = require('./routes/auth.routes')
+const connectDB = require('./db')
+
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cors({ origin: '*' }))
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Job Portal' })
 })
+app.use('/todos', todoRouter)
+app.use('/users', userRouter)
 
-const db = mongoose.connection
-
-db.once('open', () => console.log('Connected to database'))
-
-app.listen(3000, () => console.log('Server started'))
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`)
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+    process.exit(1)
+  })
