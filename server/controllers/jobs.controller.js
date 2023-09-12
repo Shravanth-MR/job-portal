@@ -1,6 +1,5 @@
 const Job = require('../models/jobs.models')
 
-// Get a list of all jobs
 const getJobs = async (req, res) => {
   try {
     const jobs = await Job.find()
@@ -12,7 +11,7 @@ const getJobs = async (req, res) => {
   }
 }
 
-// Create a new job
+
 const createJob = async (req, res) => {
   const {
     jobName,
