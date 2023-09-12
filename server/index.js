@@ -2,8 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const { PORT } = require('./config')
-const todoRouter = require('./routes/todo.routes')
+
 const userRouter = require('./routes/auth.routes')
+const jobsRouter = require('./routes/jobs.routes')
 const connectDB = require('./db')
 
 const app = express()
@@ -14,9 +15,9 @@ app.use(cors({ origin: '*' }))
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Job Portal' })
 })
-app.use('/todos', todoRouter)
-app.use('/users', userRouter)
 
+app.use('/users', userRouter)
+app.use('/jobs', jobsRouter)
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
