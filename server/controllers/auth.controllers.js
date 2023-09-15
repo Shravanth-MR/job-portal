@@ -1,6 +1,6 @@
 const { SECRET } = require('../config')
 const jwt = require('jsonwebtoken')
-const User = require('../models/user.models').default
+const User = require('../models/user.models')
 
 const userSignup = async (req, res) => {
   const newUser = req.body
@@ -21,7 +21,7 @@ const userSignup = async (req, res) => {
 }
 
 const userLogin = async (req, res) => {
-  const { email, password } = req.headers
+  const { email, password } = req.body
   const user = await User.findOne({ email: email, password: password })
   if (user) {
     const token = jwt.sign({ email: user.email }, SECRET, {

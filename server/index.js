@@ -10,7 +10,7 @@ const connectDB = require('./db')
 const app = express()
 
 app.use(bodyParser.json())
-app.use(cors({ origin: '*' }))
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Job Portal' })
