@@ -1,9 +1,5 @@
-
-
 function App() {
- 
-
-  return <main>Job Portal</main>
+  return <main className='text-center text-3xl'>Job Portal</main>
 }
 
 export default App
